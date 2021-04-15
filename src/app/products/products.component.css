@@ -1,0 +1,16 @@
+.product{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title{
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+.container {
+  text-align: center;
+  align-items: center;
+
+}

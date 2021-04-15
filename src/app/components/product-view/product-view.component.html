@@ -1,0 +1,26 @@
+<div class="card
+" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <h6 class="card-subtitle mb-2" style="color: blue">
+      {{ getCategory(product.category) }}
+    </h6>
+    <ul class="list-group">
+      <li class="list-group-item">
+        Prix : <span class="text-danger">{{ product.price }}€</span>
+      </li>
+      <li class="list-group-item">
+        Unité : <span class="text-dark">{{ product.unit }}</span>
+      </li>
+      <li class="list-group-item">
+        En stock :
+        <span [ngStyle]="{ color: product.availability ? 'green' : 'red' }">{{
+          product.availability ? "Disponible" : "Indisponible"
+        }}</span>
+      </li>
+    </ul>
+    <a [routerLink]="['/product', product.id]" class="btn btn-primary btn-sm" style="margin-top:5px;"
+      >Voir le produit</a
+    >
+  </div>
+</div>

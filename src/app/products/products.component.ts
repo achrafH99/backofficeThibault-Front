@@ -8,12 +8,24 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
 
-  products: any;
+  products: any = {
+    poissons : [],
+    crustaces : [],
+    coquillages : []
+  };
 
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts().subscribe(product => {this.products = product});
+    this.productService.getProducts().subscribe(product => {
+    this.products.poissons = product.filter(value => value.category==0);
+    this.products.crustaces = product.filter(value => value.category==2);
+    this.products.coquillages = product.filter(value => value.category ==1)});
+    console.log(this.products)
+  }
+
+  getKeys():any{
+    return Object.keys(this.products)
   }
 
   getCategory(num: number){

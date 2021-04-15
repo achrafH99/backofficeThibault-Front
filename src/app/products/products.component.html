@@ -1,18 +1,19 @@
 <div class="container">
-    <div class="row">
-        <div *ngFor="let product of products" class="col" style="margin-bottom: 5px;">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{product.name}}</h5>
-                    <h6 class="card-subtitle mb-2" style="color: blue;">{{getCategory(product.category)}}</h6>
-                    <ul class="list-group">
-                        <li class="list-group-item">Prix : <span class="text-danger">{{product.price}}€</span></li>
-                        <li class="list-group-item">Unité : <span class="text-dark">{{product.unit}}</span></li>
-                        <li class="list-group-item">En stock : <span [ngStyle]="{'color' : product.availability ? 'green' : 'red' }">{{product.availability ? "Disponible" : "Indisponible"}}</span></li>
-                    </ul>
-                    <a [routerLink]="['/product',product.id]" class="btn btn-primary">Voir le produit</a>
-                </div>
-            </div>
+  <div class="row">
+  <div class=" card title"><h1>Produits</h1></div>
+    <div *ngFor="let category of getKeys()">
+      <div >
+        <h2>{{ category }}</h2>
+      </div>
+      <div class="container row">
+        <div
+          *ngFor="let product of products[category]"
+          class="col-4 product"
+          style="margin-bottom: 5px"
+        >
+          <app-product-view [product]="product"></app-product-view>
         </div>
+      </div>
     </div>
+  </div>
 </div>
