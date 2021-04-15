@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -7,11 +7,30 @@ import { ProductsService } from '../services/products.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-mydata: any;
-  constructor(private productsService : ProductsService) { }
+
+  products: any;
+
+  constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {
-    this.productsService.getJSON().subscribe(data => this.mydata = data[1]);
+    this.products = this.productService.getProducts().subscribe(product => {this.products = product});
+  }
+
+  getCategory(num: number){
+    switch (num+"") {
+      case "O":
+        return "Poisson";
+        break;
+      case "1":
+        return "Coquillage";
+        break;
+      case "2":
+        return "Crustaces";
+        break;
+      default:
+        return "Poisson";
+        break;
+    }
   }
 
 }

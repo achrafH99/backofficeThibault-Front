@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 export class ProductsService {
 
   constructor(private http: HttpClient) {
-    this.getJSON().subscribe(data => {
+    this.getProducts().subscribe(data => {
       console.log(data);
     });
   }
 
 
-  public getJSON(): Observable<any> {
+  public getProducts(): Observable<any> {
     return this.http.get("./assets/data/products.json");
   }
 }
