@@ -4,7 +4,7 @@
             <h1>Produits</h1>
         </div>
 
-        <button class="btn btn-primary" style="margin-top: 30px;">Modifier</button>
+        <button class="btn btn-primary" style="margin-top: 30px; width:25%;margin-left:auto;margin-right:auto;" (click)= "updateAll()">Modifier</button>
 
         <div *ngFor="let category of getKeys()">
             <div>
@@ -32,11 +32,11 @@
                                     <td>{{product.name}}</td>
                                     <td>{{product.price}}</td>
                                     <td>{{product.discount}}</td>
-                                    <td>{{product.quantity_stock}}</td>
+                                    <td>{{product.quantityInStock}}</td>
                                     <td>0</td>
                                     <td>{{product.comments}}</td>
-                                    <td><input type="number"></td>
-                                    <td><input type="number"></td>
+                                    <td><input type="number" (keyup)="updateQuantity($event.target.value,product.tigID)"></td>
+                                    <td><input type="number" (keyup)="updateDiscount($event.target.value,product.tigID)"></td>
                                 </tr>
                             </tbody>
                         </table>

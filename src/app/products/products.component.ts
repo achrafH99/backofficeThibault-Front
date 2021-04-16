@@ -28,6 +28,31 @@ export class ProductsComponent implements OnInit {
     return Object.keys(this.products)
   }
 
+  updateAll(): any{
+    const arr = this.getList().filter(value => value.quantityInStock || value.discount );
+    console.log(arr);
+
+    this.productService.updateProduct(arr).subscribe(value => console.log(value))
+  }
+
+  getList():any{
+    let listProducts = this.products.poissons.concat(this.products.crustaces);
+    listProducts = listProducts.concat(this.products.coquillages);
+    return listProducts
+  }
+
+  updateQuantity(event,id:number):any{
+    console.log(event)
+    const arr = this.getList().filter(value => value.tigID == id)[0];
+    arr.quantityInStock = parseInt(event)
+    console.log(this.products)
+  }
+  updateDiscount(event,id:number):any{
+    const arr = this.getList().filter(value => value.tigID == id)[0];
+    arr.discount = parseInt(event)
+    console.log(this.products)
+  }
+
   getCategory(num: number){
     switch (num+"") {
       case "O":
