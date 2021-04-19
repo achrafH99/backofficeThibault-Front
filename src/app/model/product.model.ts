@@ -8,7 +8,7 @@ export interface Product {
     unit: string;
     availability : boolean;
     sale: boolean;
-    discount: number;
+    discount ?: number;
     owner : string;
     quantityInStock: number;
     tigID: number;

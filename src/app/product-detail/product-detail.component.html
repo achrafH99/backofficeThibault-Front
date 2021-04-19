@@ -12,7 +12,6 @@
                         <li class="list-group-item">Quantité en stock : <span>{{product.quantityInStock}}</span></li>
                         <li *ngIf="product.sale" class="list-group-item">Prix après promotion : <span style="color: rgb(0, 192, 250);">{{product.price_on_sale}}€ ({{product.discount}}%)</span></li>
                         <li *ngIf="product.comments" class="list-group-item">Commentaire : <span style="color: rgb(73, 73, 73);">{{product.comments}}</span></li>
-
                     </ul>
                     <input placeholder="Quantite a modifier" type="number" (keyup)="updateQuantity($event.target.value)">
                     <input placeholder="Promotion a modifier" type="number" (keyup)="updateDiscount($event.target.value)">

@@ -1,1 +1,50 @@
 <p>home works!</p>
+
+<div class="ng-autocomplete">
+  <ng-autocomplete
+    [data]="countries"
+    [searchKeyword]="keyword"
+    placeholder="Enter the Country Name"
+    historyIdentifier="countries"
+    [itemTemplate]="itemTemplate"
+    [notFoundTemplate]="notFoundTemplate"
+  >
+  </ng-autocomplete>
+
+  <ng-template #itemTemplate let-item>
+    <a [innerHTML]="item.name"></a>
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div [innerHTML]="notFound"></div>
+  </ng-template>
+</div>
+
+<div class="list_products">
+  <div *ngFor="let product of products">
+    <div class="container">
+      <div class="row">
+        <div class="col" style="margin-bottom: 10px">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <h6 class="card-subtitle mb-2" style="color: blue">
+                {{ getCategory(product.category) }}
+              </h6>
+              <ul class="list-group" style="margin-bottom: 7px">
+                <li class="list-group-item">
+                  Prix : <span class="text-danger">{{ product.price }}€</span>
+                </li>
+              </ul>
+              <a
+                [routerLink]="['/product', product.tigID]"
+                class="btn btn-primary"
+                >Voir le produit</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
