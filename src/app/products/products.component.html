@@ -18,7 +18,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
+                                    <th scope="col">Prix Achat</th>
                                     <th scope="col">Prix</th>
+                                    <th scope="col">Prix Promo</th>
                                     <th scope="col">Promotion</th>
                                     <th scope="col">Quantités</th>
                                     <th scope="col">Vendus</th>
@@ -30,7 +32,9 @@
                             <tbody>
                                 <tr *ngFor="let product of products[category]">
                                     <td>{{product.name}}</td>
+                                    <td>{{product.priceAchat | number}}</td>
                                     <td>{{product.price}}</td>
+                                    <td>{{getDiscountPrice(product.discount,product.price) | number}}</td>
                                     <td>{{product.discount}}</td>
                                     <td>{{product.quantityInStock}}</td>
                                     <td>0</td>

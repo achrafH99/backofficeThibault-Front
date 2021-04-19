@@ -4,6 +4,7 @@
   <ng-autocomplete
     [data]="countries"
     [searchKeyword]="keyword"
+    (selected)='selectEvent($event)'
     placeholder="Enter the Country Name"
     historyIdentifier="countries"
     [itemTemplate]="itemTemplate"
@@ -18,10 +19,11 @@
   <ng-template #notFoundTemplate let-notFound>
     <div [innerHTML]="notFound"></div>
   </ng-template>
+  <button class="btn btn-primary">Search</button>
 </div>
 
 <div class="list_products">
-  <div *ngFor="let product of products">
+  <div *ngFor="let product of productsFilter">
     <div class="container">
       <div class="row">
         <div class="col" style="margin-bottom: 10px">

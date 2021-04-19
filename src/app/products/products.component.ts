@@ -59,6 +59,12 @@ export class ProductsComponent implements OnInit {
     return this.getProducts().filter(value => value.tigID == tigId)[0]
   }
 
+  getDiscountPrice(discount:number,price:number):any{
+    if(discount >0){
+      return price - (price * (discount/100));
+    }
+  }
+
   getList(): any {
     let listProducts = this.request.poissons.concat(this.request.crustaces);
     listProducts = listProducts.concat(this.request.coquillages);
