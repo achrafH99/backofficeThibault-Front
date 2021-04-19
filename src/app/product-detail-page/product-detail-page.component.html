@@ -1,0 +1,27 @@
+<div class="detail-page">
+  <h3 id="detail-page_title">
+    Veuillez saisir le produit dont vous voulez les informations:
+  </h3>
+  <form class="form-text">
+    <input
+      type="text"
+      placeholder="Search for a product"
+      [formControl]="control"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="setProductValue($event.option.value)"
+    >
+      <mat-option *ngFor="let product of searchResult" [value]="product.name">
+        {{ product.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  <div class="result" *ngFor="let result of searchResult">
+    <app-product-detail
+      *ngIf="searchResult"
+      [productInfo]="result.tigID"
+    ></app-product-detail>
+  </div>
+</div>

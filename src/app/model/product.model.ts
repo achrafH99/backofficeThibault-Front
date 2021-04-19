@@ -10,7 +10,7 @@ export interface Product {
     sale: boolean;
     discount: number;
     owner : string;
-    quantiyInStock: number;
-    tigId: number;
+    quantityInStock: number;
+    tigID: number;
     comments: string;
 }

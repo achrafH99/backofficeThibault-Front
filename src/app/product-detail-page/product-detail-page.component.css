@@ -1,0 +1,8 @@
+.detail-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#detail-page_title {
+    margin: 25px;
+}
