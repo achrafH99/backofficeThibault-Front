@@ -6,3 +6,7 @@
 #detail-page_title {
     margin: 25px;
 }
+.result-ctn {
+    display: flex;
+    flex-wrap: wrap;
+}

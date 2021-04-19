@@ -18,10 +18,12 @@
       </mat-option>
     </mat-autocomplete>
   </form>
-  <div class="result" *ngFor="let result of searchResult">
-    <app-product-detail
-      *ngIf="searchResult"
-      [productInfo]="result.tigID"
-    ></app-product-detail>
+  <div class="result-ctn">
+    <div class="result" *ngFor="let result of searchResult">
+      <app-product-detail
+        *ngIf="searchResult"
+        [productInfo]="result.tigID"
+      ></app-product-detail>
+    </div>
   </div>
 </div>
