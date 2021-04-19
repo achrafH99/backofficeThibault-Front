@@ -18,9 +18,10 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(product => {
-    this.products.poissons = product.filter(value => value.category==0);
-    this.products.crustaces = product.filter(value => value.category==2);
-    this.products.coquillages = product.filter(value => value.category ==1)});
+      this.products.poissons = product.filter(value => value.category==0);
+      this.products.crustaces = product.filter(value => value.category==2);
+      this.products.coquillages = product.filter(value => value.category ==1)
+    });
     console.log(this.products)
   }
 
@@ -57,16 +58,12 @@ export class ProductsComponent implements OnInit {
     switch (num+"") {
       case "O":
         return "Poisson";
-        break;
       case "1":
         return "Coquillage";
-        break;
       case "2":
         return "Crustaces";
-        break;
       default:
         return "Poisson";
-        break;
     }
   }
 
