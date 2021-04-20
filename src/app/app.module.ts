@@ -8,7 +8,11 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { CommonModule } from '@angular/common';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { HomeComponent } from './home/home.component';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select'
+
 
 
 
@@ -25,7 +29,10 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
