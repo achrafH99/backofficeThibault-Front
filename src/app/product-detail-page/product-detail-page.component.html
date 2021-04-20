@@ -5,6 +5,7 @@
   <form class="form-text">
     <input
       type="text"
+      id="searchInput"
       placeholder="Search for a product"
       [formControl]="control"
       [matAutocomplete]="auto"
@@ -18,10 +19,13 @@
       </mat-option>
     </mat-autocomplete>
   </form>
-  <div class="result" *ngFor="let result of searchResult">
-    <app-product-detail
-      *ngIf="searchResult"
-      [productInfo]="result.tigID"
-    ></app-product-detail>
+  <h3 *ngIf="searchResult.length === 0">No results</h3>
+  <div class="results">
+    <div class="result" *ngFor="let result of searchResult">
+      <app-product-detail
+        *ngIf="searchResult"
+        [productInfo]="result.tigID"
+      ></app-product-detail>
+    </div>
   </div>
 </div>

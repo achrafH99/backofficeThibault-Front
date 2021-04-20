@@ -1,48 +1,95 @@
 <div class="container">
-    <div class="row">
-        <div class=" card title">
-            <h1>Produits</h1>
-        </div>
-
-        <button class="btn btn-primary" style="margin-top: 30px; width:25%;margin-left:auto;margin-right:auto;" (click)= "updateAll()" >Modifier</button>
-
-        <div *ngFor="let category of getKeys()">
-            <div>
-                <h2>{{ category }}</h2>
-            </div>
-            <div class=" row">
-                <div>
-                    <!-- <app-product-view [product]="product"></app-product-view> -->
-                    <div class="table-responsive">
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Prix</th>
-                                    <th scope="col">Promotion</th>
-                                    <th scope="col">Quantités</th>
-                                    <th scope="col">Vendus</th>
-                                    <th scope="col">Commentaire</th>
-                                    <th scope="col">Ajout Stock</th>
-                                    <th scope="col">Ajout Promo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let product of products[category]">
-                                    <td>{{product.name}}</td>
-                                    <td>{{product.price}}</td>
-                                    <td>{{product.discount}}</td>
-                                    <td>{{product.quantityInStock}}</td>
-                                    <td>0</td>
-                                    <td>{{product.comments}}</td>
-                                    <td><input type="number" (keyup)="updateQuantity($event.target.value,product.tigID)"></td>
-                                    <td><input type="number" (keyup)="updateDiscount($event.target.value,product.tigID)"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="card title">
+      <h1>Produits</h1>
     </div>
+
+    <button
+      class="btn btn-primary"
+      style="
+        margin-top: 30px;
+        width: 25%;
+        margin-left: auto;
+        margin-right: auto;
+      "
+      (click)="updateAll()"
+      disabled="{{ disabled }}"
+    >
+      Modifier
+    </button>
+    <button class="btn btn-success" (click)="getSucces()">TOASTR</button>
+    <div *ngFor="let category of getKeys()">
+      <div>
+        <h2>{{ category }}</h2>
+      </div>
+      <div class="row">
+        <div>
+          <!-- <app-product-view [product]="product"></app-product-view> -->
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prix Achat</th>
+                  <th scope="col">Prix</th>
+                  <th scope="col">Prix Promo</th>
+                  <th scope="col">Promotion</th>
+                  <th scope="col">Quantités</th>
+                  <th scope="col">Vendus</th>
+                  <th scope="col">Action</th>
+                  <th scope="col">Ajout Stock</th>
+                  <th scope="col">Ajout Promo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products[category]">
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.priceAchat | number }}</td>
+                  <td>{{ product.price }}</td>
+                  <td>
+                    {{
+                      getDiscountPrice(product.discount, product.price) | number
+                    }}
+                  </td>
+                  <td>{{ product.discount }}</td>
+                  <td>{{ product.quantityInStock }}</td>
+                  <td>0</td>
+                  <td>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select an option</mat-label>
+                      <mat-select (selectionChange)="handleOperation($event,product.tigID)">
+                        <mat-option>None</mat-option>
+                        <mat-option value="Vente">Vente</mat-option>
+                        <mat-option value="Invendu">Invendu</mat-option>
+                        <mat-option value="Achat">Achat</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      (keyup)="
+                        updateQuantity($event.target.value, product.tigID)
+                      "
+                      (keyup)="
+                        notNegatif($event.target.value, product.quantityInStock)
+                      "
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      (keyup)="
+                        updateDiscount($event.target.value, product.tigID)
+                      "
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

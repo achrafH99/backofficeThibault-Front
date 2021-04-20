@@ -4,7 +4,7 @@ import { Product } from '../model/product.model'
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -29,6 +29,7 @@ export class ProductDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getProducts().subscribe((val) => {
       this.listProduct = val;
+      this.searchResult = val;
     });
     this.filteredProduct = this.control.valueChanges.pipe(
       startWith(''),
@@ -48,8 +49,14 @@ export class ProductDetailPageComponent implements OnInit {
   private _filter(value: string): Product[] {
     const filterValue = this._normalizeValue(value);
     return this.listProduct.filter((prod) =>
-      this._normalizeValue(prod.name).includes(filterValue)
+      // this._normalizeValue(prod.name).includes(filterValue) // contient substring
+      this.contain(filterValue, this._normalizeValue(prod.name)) // commence par substring
     );
+  }
+
+  private contain(input: string, product: string){
+    const pattern = new RegExp('^'+input, 'i');
+    return pattern.test(product);
   }
 
   private _normalizeValue(value: string): string {

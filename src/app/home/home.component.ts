@@ -15,76 +15,41 @@ export interface User {
 })
 export class HomeComponent implements OnInit {
 
+  searchValue : string ;
   keyword = 'name';
   public countries = [
-    {
-      id: 1,
-      name: 'Albania',
-    },
-    {
-      id: 2,
-      name: 'Belgium',
-    },
-    {
-      id: 3,
-      name: 'Denmark',
-    },
-    {
-      id: 4,
-      name: 'Montenegro',
-    },
-    {
-      id: 5,
-      name: 'Turkey',
-    },
-    {
-      id: 6,
-      name: 'Ukraine',
-    },
-    {
-      id: 7,
-      name: 'Macedonia',
-    },
-    {
-      id: 8,
-      name: 'Slovenia',
-    },
-    {
-      id: 9,
-      name: 'Georgia',
-    },
-    {
-      id: 10,
-      name: 'India',
-    },
-    {
-      id: 11,
-      name: 'Russia',
-    },
-    {
-      id: 12,
-      name: 'Switzerland',
-    }
+
   ];
+  productsFilter: any=[];
 
   constructor(private productService: ProductsService) { }
 
   products: any;
 
   ngOnInit(): void {
-    this.products = this.productService.getProducts().subscribe(product => {
+    this.productService.getProducts().subscribe(product => {
       this.products = product
+      this.productsFilter=this.products
+      product.forEach(value =>  {
+        this.countries.push({"name" : value.name})
+      })
+      console.log(this.countries)
     });
 
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => typeof value === 'string' ? value : value.name),
-      map(name => name ? this._filter(name) : this.options.slice())
-    );
+
 
   }
 
+
+    selectEvent(event):any{
+      this.searchValue=event.name;
+      if(Array.isArray(this.productsFilter) && this.productsFilter.length && this.searchValue != ""){
+      this.productsFilter = this.products.filter(value => value.name == this.searchValue)
+      }
+      else{
+        this.productsFilter=this.products
+      }
+    }
   // updateProducts(event):any{
   //   if (event == ""){
   //     this.products = this.productService.getProducts().subscribe(product => {
@@ -97,25 +62,6 @@ export class HomeComponent implements OnInit {
   //   }
   // }
 
-  filteredOptions: Observable<User[]>;
-
-  myControl = new FormControl();
-  options: User[] = [
-    {name: 'Mary'},
-    {name: 'Shelley'},
-    {name: 'Igor'}
-  ];
-
-
-  displayFn(user: User): string {
-    return user && user.name ? user.name : '';
-  }
-
-  private _filter(name: string): User[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
-  }
 
 
   getCategory(num:number): string{

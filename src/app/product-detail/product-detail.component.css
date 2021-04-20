@@ -1,0 +1,20 @@
+.card-body > a,
+.card-body > input {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.card-body > input {
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border: 1px solid rgba(128, 128, 128, 0.493);
+  color: rgba(57, 109, 143, 0.644);
+}
+
+.card-body > input:hover,
+.card-body > input:focus {
+  border: 1px solid rgba(57, 109, 143, 0.644);
+  color: rgba(39, 74, 97, 0.87);
+}

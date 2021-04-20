@@ -13,6 +13,14 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select'
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +38,11 @@ import { HomeComponent } from './home/home.component';
     NoopAnimationsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    AutocompleteLibModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent],
