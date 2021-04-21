@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
   };
   request: any = {}
 
-  disabled = true
+  disabled = false
 
   constructor(private productService: ProductsService, private router: Router, private toastr: ToastrService) { }
 
@@ -35,9 +35,23 @@ export class ProductsComponent implements OnInit {
 
       // const list = JSON.parse(JSON.stringify(this.products))
       const list = JSON.parse(JSON.stringify(product))
-      this.request.poissons = list.filter(value => value.category == 0);
-      this.request.crustaces = list.filter(value => value.category == 2);
-      this.request.coquillages = list.filter(value => value.category == 1);
+      this.request.poissons = []
+      list.filter(value => value.category == 0).forEach(element => {
+        delete element.quantityInStock;
+        this.request.poissons.push(element)
+      });
+      this.request.crustaces = []
+      list.filter(value => value.category == 2).forEach(element => {
+        delete element.quantityInStock;
+        this.request.crustaces.push(element)
+      });
+      this.request.coquillages = []
+      list.filter(value => value.category == 1).forEach(element => {
+        delete element.quantityInStock;
+        this.request.coquillages.push(element)
+      });
+      console.log(this.request);
+
     });
 
   }
@@ -47,7 +61,7 @@ export class ProductsComponent implements OnInit {
   }
 
   updateAll(): any {
-    const arr = this.getList().filter(value => value.quantityInStock != this.getObj(value.tigID).quantityInStock
+    const arr = this.getList().filter(value => value.quantityInStock != undefined
       || value.discount != this.getObj(value.tigID).discount);
     console.log(arr);
     this.productService.updateProduct(arr).subscribe(value => {
@@ -89,11 +103,17 @@ export class ProductsComponent implements OnInit {
     console.log(event)
     const arr = this.getList().filter(value => value.tigID == id)[0];
     console.log(arr)
-    if (!isNaN(event) && event != "") {
-      arr.quantityInStock = parseInt(event)
+    if (arr.action == "Vente" || arr.action == "Invendu") {
+      this.checkQuantity(this.getObj(arr.tigID).quantityInStock, event)
+    }
+    else{this.disabled=false}
+    if (this.disabled == false) {
+      if (!isNaN(event) && event != "") {
+        arr.quantityInStock = parseInt(event)
 
-    } else {
-      arr.quantityInStock = this.getObj(arr.tigID).quantityInStock
+      } else {
+        arr.quantityInStock = this.getObj(arr.tigID).quantityInStock
+      }
     }
 
   }
@@ -127,21 +147,22 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  notNegatif(stock: string, decrement: string) {
+  checkQuantity(stock: string, decrement: string) {
     const stockNumber = parseInt(stock)
     const decrementNumber = parseInt(decrement)
-    const total = stockNumber + decrementNumber
-    if (total < 0 || isNaN(total)) {
+    const total = stockNumber - decrementNumber
+    if ((total < 0 || isNaN(total)) && decrementNumber) {
       console.log("negatif", total)
       this.disabled = true
     }
     else {
       console.log("positif ", total)
-      this.disabled = null
+      this.disabled = false
     }
   }
 
-  handleOperation(event,tigId:number){
+  handleOperation(event, tigId: number) {
+
     this.getOneProduct(tigId).action = event.value
   }
 
