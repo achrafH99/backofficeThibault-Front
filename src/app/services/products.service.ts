@@ -23,6 +23,11 @@ export class ProductsService {
 
   }
 
+  public getVentes():Observable<any> {
+    // return this.http.get("./assets/data/products.json");
+    return this.http.get("http://localhost:8000/getVentes");
+  }
+
   updateProduct(products: Product[]): Observable<Product> {
     return this.http.put<Product>("http://localhost:8000/putProduct", products)
   }

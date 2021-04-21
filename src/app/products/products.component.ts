@@ -66,6 +66,7 @@ export class ProductsComponent implements OnInit {
     console.log(arr);
     this.productService.updateProduct(arr).subscribe(value => {
       this.getDatas();
+      this.getSucces();
     })
 
   }

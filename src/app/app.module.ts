@@ -16,7 +16,10 @@ import { HomeComponent } from './home/home.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSelectModule} from '@angular/material/select'
+import {MatSelectModule} from '@angular/material/select';
+import { ProductGraphComponent } from './product-graph/product-graph.component'
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 
 
@@ -29,6 +32,7 @@ import {MatSelectModule} from '@angular/material/select'
     ProductDetailComponent,
     ProductViewComponent,
     ProductDetailPageComponent,
+    ProductGraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import {MatSelectModule} from '@angular/material/select'
     AutocompleteLibModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxChartsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
