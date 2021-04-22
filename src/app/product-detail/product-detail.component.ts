@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from '../model/product.model';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,6 +13,8 @@ export class ProductDetailComponent implements OnInit {
   @Input() productInfo: number;
   constructor(
     private productService: ProductsService,
+    private authentication: AuthenticationService,
+    private route: Router,
     private router: ActivatedRoute
   ) {}
 
@@ -26,10 +29,17 @@ export class ProductDetailComponent implements OnInit {
     //   console.log(value);
     //   console.log(this.product);
     // });
-    this.productService.getProduct(this.productInfo).subscribe((val) => {
-      this.product = val;
-      this.updatedProduct = val;
-    });
+    this.productService.getProduct(this.productInfo).subscribe(
+      (val) => {
+        this.product = val;
+        this.updatedProduct = val;
+      },
+      (error) => {
+        this.authentication.tokens = undefined;
+        console.log(error);
+        this.route.navigate(['/login'])
+      }
+    );
     // this.product= this.productInfo;
   }
 
@@ -44,9 +54,16 @@ export class ProductDetailComponent implements OnInit {
       this.modificationDiscount !== this.updatedProduct.discount
     )
       this.updatedProduct.discount = this.modificationDiscount;
-    this.productService
-      .updateProduct([this.updatedProduct])
-      .subscribe((value) => console.log(value));
+    this.productService.updateProduct([this.updatedProduct]).subscribe(
+      (value) => {
+        console.log(value);
+      },
+      (error) => {
+        this.authentication.tokens = undefined;
+        console.log(error);
+        this.route.navigate(['/login']);
+      }
+    );
   }
 
   updateQuantity(event): any {

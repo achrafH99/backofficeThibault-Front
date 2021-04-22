@@ -40,6 +40,6 @@ export class ProductsService {
   }
 
   updateProduct(products: Product[]): Observable<Product> {
-    return this.http.put<Product>("http://localhost:8000/putProduct/"+ products, { headers: this.getHeader() })
+    return this.http.put<Product>("http://localhost:8000/putProduct", products, { headers: this.getHeader() })
   }
 }
