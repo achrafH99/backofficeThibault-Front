@@ -11,12 +11,18 @@
   background-color:rgb(3, 156, 156)
 }
 
+.title{
+  margin-top: 50px;
+}
+
+.app-home{
+  height: 94.5%;
+}
+
 .container{
-  margin-top: 160px;
 }
 .title{
   text-align: center;
-  margin-top: 10px;
   font-size: 60px;
   font-family: system-ui;
 }

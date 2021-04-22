@@ -1,0 +1,10 @@
+<div class="login-page">
+    <h1>Bateau de Thibault</h1>
+    <p *ngIf="errorLogin" >Login incorrect</p>
+    <form class="login-form" (submit)="login($event)">
+        <input class="login-input" type="text" placeholder="Username" name="username">
+        <input class="login-input" type="password" placeholder="Password" name="password">
+        <button class="btn btn-primary login-button" type="submit">Login</button>
+        <button class="btn btn-secondary login-button" type="reset">Reset</button>
+    </form>
+</div>

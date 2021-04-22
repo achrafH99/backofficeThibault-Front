@@ -1,0 +1,42 @@
+.login-page{
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1468581264429-2548ef9eb732?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-position: center center;
+    background-size: cover;
+}
+
+.login-page h1 {
+    padding: 30px;
+    font-size: 30pt;
+    font-weight: 900;
+    color: #fff;
+}
+
+.login-page,
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ }
+.login-form{
+    width: 100%;
+
+}
+.login-input,
+.login-button{
+    width: 20%;
+    margin: 5px;
+}
+
+.login-input{
+    color: rgba(61, 61, 61, 0.747);
+    border: 1px solid rgba(78, 78, 78, 0.25);
+    border-radius: 7px;
+    padding: 8px;
+    outline: none;
+    background-color: #fff;
+}
+.login-input::placeholder{
+    color: rgba(78, 78, 78, 0.76);
+}

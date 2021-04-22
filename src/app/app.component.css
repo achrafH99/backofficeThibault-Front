@@ -1,11 +1,16 @@
 body {
     font-family: Arial;
+    background-color: green;
+    height: 100%;
 }
 
-.bg {
-    /* background: linear-gradient(96deg, rgba(0,180,193,1) 0%, rgba(33,254,207,1) 100%, rgba(168,245,248,1) 100%); */
+.app {
+    height: 100%;
 }
 
+.bg{
+    height: 94.8%;
+}
 
 /* Style the tab */
 
