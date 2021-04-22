@@ -4,6 +4,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 import * as moment from 'moment';
+import {curveBasis} from 'd3-shape';
+
+
 
 
 @Component({
@@ -21,9 +24,11 @@ export class ProductGraphComponent implements OnInit {
   dateFin: FormControl = new FormControl();
   dateDebutValue: any;
   dateFinValue: any;
-  typeGraph: any = "Date"
-  view: any[] = [700, 300];
+  typeGraph: any = "Categorie"
+  view: any[] = [1300, 500];
   multi = [];
+  dateDu = this.datePipe.transform(new Date().setDate(new Date().getDate() -365 ), "dd/MM/yyyy")
+  dateAu = this.datePipe.transform(new Date(), "dd/MM/yyyy")
 
   // {
   //   "name": "Germany",
@@ -49,9 +54,13 @@ export class ProductGraphComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
+  showGridLines:boolean =false;
+  xAxisLabel: string = 'Date';
   yAxisLabel: string = 'Ventes';
   timeline: boolean = true;
+  gradient:boolean = true;
+  curve: any = curveBasis;
+  autoScale : boolean = true
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
@@ -78,8 +87,12 @@ export class ProductGraphComponent implements OnInit {
       this.products.coquillages = product.filter(value => value.category == 1);
 
       this.saleData.forEach(element => {
+        let eleDate = moment(element.name,"yyyy-MM-dd").toDate()
+        let date = new Date();
+        if( eleDate.getTime() > date.getTime() && eleDate.getTime() <= new Date().getTime() ){
         let name = element.name
         element.value = this.getTotal(this.products[name]);
+        }
       });
 
       this.dateDebutValue = this.getFirstDate(product)["date"];
@@ -89,30 +102,14 @@ export class ProductGraphComponent implements OnInit {
       this.minDate = this.datePipe.transform(this.getFirstDate(product)["date"], 'yyyy-MM-dd')
       console.log(this.getProductsInDate(product, this.dateFinValue, this.dateDebutValue));
       this.disabled = true;
-      console.log(this.getArraySort(this.getProductsInDate(this.products.all, this.dateFinValue, this.dateDebutValue)));
-      this.multi.push(this.getArraySort(this.getProductsInDate(this.products.all, this.dateFinValue, this.dateDebutValue)))
+      // console.log("test" , this.getArraySort(this.getProductsInDate(this.products.poissons, this.dateFinValue, this.dateDebutValue)));
+      this.multi.push(this.getArraySort(this.getProductsInDate(this.products.poissons, this.dateFinValue, this.dateDebutValue),"poissons"))
+      this.multi.push(this.getArraySort(this.getProductsInDate(this.products.crustaces, this.dateFinValue, this.dateDebutValue),"crustaces"))
+      this.multi.push(this.getArraySort(this.getProductsInDate(this.products.coquillages, this.dateFinValue, this.dateDebutValue),"coquillages"))
       this.disabledLine=true;
     });
     this.selectGraph.valueChanges.subscribe(graph => {
       this.typeGraph = graph
-    });
-
-    this.dateFin.valueChanges.subscribe(date => {
-      this.dateFinValue = date
-      console.log(this.getProductsInDate(this.products.all, this.dateFinValue, this.dateDebutValue));
-      // this.multi.push(this.getArraySort(this.getProductsInDate(this.products.all, this.dateFinValue, this.dateDebutValue)));
-
-    });
-    this.dateDebut.valueChanges.subscribe(date => {
-
-      this.dateDebutValue = date
-      console.log(this.getProductsInDate(this.products.all, this.dateFinValue, this.dateDebutValue));
-      this.multi[0].series.push({
-        "name": new Date ("2021-04-21"),
-        "value": 1500
-      });
-      this.multi = [...this.multi]
-
     });
 
   }
@@ -138,22 +135,43 @@ export class ProductGraphComponent implements OnInit {
       dateDebut = this.getFirstDate(products)["date"];
     }
     return products.filter(product => product.date.getTime() >= dateDebut.getTime() && product.date.getTime() <= dateFin.getTime())
-
   }
 
-  getArraySort(products: any) {
+  getArraySort(products: any,category:string) {
     products.map(product => {
       product.date = moment(product.date, 'YYYY-MM-DD').toDate();
     });
     let productSort = products.sort(function (a, b) { return a.date - b.date });
     return {
-      "name": "test", "series": productSort.map(product => {
+      "name": category, "series": productSort.map(product => {
         return {
           "name": this.datePipe.transform(product.date,"yyyy-MM-dd"),
-          "value": product.price
+          "value": product.quantity
         }
       })
     }
+  }
+
+  onSearch(){
+    this.dateDebutValue=this.dateDebut.value;
+    this.dateFinValue=this.dateFin.value;
+    this.multi=[];
+    if (this.multi== []) {
+      this.disabledLine=false
+    }
+    this.multi.push(this.getArraySort(this.getProductsInDate(this.products.poissons, this.dateFinValue, this.dateDebutValue),"poissons"))
+    this.multi.push(this.getArraySort(this.getProductsInDate(this.products.crustaces, this.dateFinValue, this.dateDebutValue),"crustaces"))
+    this.multi.push(this.getArraySort(this.getProductsInDate(this.products.coquillages, this.dateFinValue, this.dateDebutValue),"coquillages"))
+
+    if(this.multi != []){
+      this.disabledLine=true
+
+    }
+    // this.multi[0].series.push({
+    //   "name": new Date ("2021-04-22"),
+    //   "value": 1500
+    // });
+    // this.multi = [...this.multi]
   }
 
 

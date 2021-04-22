@@ -22,8 +22,15 @@
   <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
   <mat-datepicker #dateEnd></mat-datepicker>
 </mat-form-field>
+
+<div class="example-button-container" *ngIf="typeGraph == 'Date'">
+        <button mat-fab class="buttonSearch" (click)="onSearch()" aria-label="Example icon button with a heart icon">
+          <mat-icon>search</mat-icon>
+        </button>
 </div>
 
+<h2 *ngIf="disabled && typeGraph == 'Categorie'">Chiffre d'affaire annuel du {{dateDu }} au {{dateAu}}</h2>
+<div class="charts">
 <ngx-charts-pie-chart *ngIf="disabled && typeGraph == 'Categorie'"
     [results]="saleData"
     [legend]="true"
@@ -44,6 +51,12 @@
   [yAxisLabel]="yAxisLabel"
   [timeline]="timeline"
   [results]="multi"
+  [gradient]="gradient"
+  [curve]="curve"
+  [autoScale]="autoScale"
+
+
   >
 </ngx-charts-line-chart>
+</div>
 

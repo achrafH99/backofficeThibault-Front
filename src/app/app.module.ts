@@ -22,6 +22,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 
@@ -52,7 +56,10 @@ import {MatInputModule} from '@angular/material/input';
     NgxChartsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule
 
   ],
   providers: [MatDatepickerModule, DatePipe,{provide: MAT_DATE_LOCALE, useValue: 'fr'}],
