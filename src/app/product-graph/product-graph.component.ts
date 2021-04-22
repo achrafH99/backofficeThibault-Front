@@ -17,72 +17,20 @@ export class ProductGraphComponent implements OnInit {
       "name": "Germany",
       "series": [
         {
-          "name": "1990",
+          "name": "1990-07-22",
           "value": 62000000
         },
         {
-          "name": "2010",
+          "name": "2010-01-20",
           "value": 73000000
         },
         {
-          "name": "2011",
+          "name": "2011-03-12",
           "value": 89400000
         }
       ]
     },
 
-    {
-      "name": "USA",
-      "series": [
-        {
-          "name": "1990",
-          "value": 250000000
-        },
-        {
-          "name": "2010",
-          "value": 309000000
-        },
-        {
-          "name": "2011",
-          "value": 311000000
-        }
-      ]
-    },
-
-    {
-      "name": "France",
-      "series": [
-        {
-          "name": "1990",
-          "value": 58000000
-        },
-        {
-          "name": "2010",
-          "value": 50000020
-        },
-        {
-          "name": "2011",
-          "value": 58000000
-        }
-      ]
-    },
-    {
-      "name": "UK",
-      "series": [
-        {
-          "name": "1990",
-          "value": 57000000
-        },
-        {
-          "name": "2010",
-          "value": 62000000
-        }
-        ,{
-          "name": "2011",
-          "value": 62000000
-        }
-      ]
-    }
   ];
 
   legend: boolean = true;
@@ -122,6 +70,18 @@ export class ProductGraphComponent implements OnInit {
         let name=element.name
         element.value = this.getTotal(this.products[name]);
       });
+
+      // let tmp = this.products.poissons.map(val => {
+      //   return {
+      //     "name": val.date,
+      //     "value": JSON.parse(val.price)
+      //   }
+      // })
+      // this.multi.push({
+      //   "name": "Poissons",
+      //   "series": tmp 
+      // })
+
       this.disabled=true;
 
     });
