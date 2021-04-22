@@ -17,6 +17,9 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   updatedProduct: Product;
+  disabled: Boolean = true;
+  modificationQuantity: number;
+  modificationDiscount: number;
 
   ngOnInit(): void {
     // this.router.params.subscribe((value) => {
@@ -31,19 +34,42 @@ export class ProductDetailComponent implements OnInit {
   }
 
   updateProduct(): any {
+    if (
+      this.modificationQuantity &&
+      this.modificationQuantity !== this.updatedProduct.quantityInStock
+    )
+      this.updatedProduct.quantityInStock = this.modificationQuantity;
+    if (
+      this.modificationDiscount &&
+      this.modificationDiscount !== this.updatedProduct.discount
+    )
+      this.updatedProduct.discount = this.modificationDiscount;
     this.productService
       .updateProduct([this.updatedProduct])
       .subscribe((value) => console.log(value));
   }
 
   updateQuantity(event): any {
-    this.updatedProduct.quantityInStock = parseInt(event);
-    console.log(this.updatedProduct);
+    if (event && parseInt(event) >= 0) {
+      this.modificationQuantity = parseInt(event);
+      this.updatedProduct.action = 'Achat';
+      this.disabled = false;
+      console.log(this.updatedProduct);
+    } else {
+      this.modificationQuantity = this.updatedProduct.quantityInStock;
+      this.disabled = true;
+    }
   }
 
   updateDiscount(event): any {
-    this.updatedProduct.discount = parseInt(event);
-    this.updatedProduct.sale = this.updatedProduct.discount > 0;
+    if (event && parseInt(event) >= 0) {
+      this.modificationDiscount = parseInt(event);
+      this.disabled = false;
+      this.updatedProduct.sale = this.updatedProduct.discount > 0;
+    } else {
+      this.modificationDiscount = this.updatedProduct.discount;
+      this.disabled = true;
+    }
   }
 
   getCategory(num: number) {

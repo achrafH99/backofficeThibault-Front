@@ -13,4 +13,5 @@ export interface Product {
     quantityInStock: number;
     tigID: number;
     comments: string;
+    action: string;
 }
