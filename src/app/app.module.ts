@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { ProductDetailPageComponent } from './product-detail-page/product-detail-page.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 import { ProductGraphComponent } from './product-graph/product-graph.component'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 
 
 
@@ -47,10 +49,13 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     MatSelectModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
 
   ],
-  providers: [],
+  providers: [MatDatepickerModule, DatePipe,{provide: MAT_DATE_LOCALE, useValue: 'fr'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

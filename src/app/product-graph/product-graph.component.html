@@ -1,4 +1,30 @@
-<ngx-charts-pie-chart *ngIf="disabled"
+<div class="select">
+<mat-form-field appearance="outline">
+                      <mat-label>Selectionnez un graphique</mat-label>
+                      <mat-select
+                      [formControl]="selectGraph"
+                      >
+                        <mat-option value="Categorie">Par Catégorie</mat-option>
+                        <mat-option value="Date">Par Date</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+<br>
+  <mat-form-field appearance="outline" *ngIf="typeGraph == 'Date'">
+  <mat-label>Date début</mat-label>
+  <input matInput [matDatepicker]="dateDeb" [formControl]="dateDebut" [min]="minDate"  [max]= "yesterday">
+  <mat-datepicker-toggle matSuffix [for]="dateDeb"></mat-datepicker-toggle>
+  <mat-datepicker #dateDeb></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field appearance="outline" *ngIf="typeGraph == 'Date'">
+  <mat-label>Date fin</mat-label>
+  <input matInput [matDatepicker]="dateEnd" [formControl]="dateFin" [max]=yesterday >
+  <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+  <mat-datepicker #dateEnd></mat-datepicker>
+</mat-form-field>
+</div>
+
+<ngx-charts-pie-chart *ngIf="disabled && typeGraph == 'Categorie'"
     [results]="saleData"
     [legend]="true"
     [legendTitle]="'Product Sale Report'"
@@ -6,7 +32,7 @@
     [labels]="true" >
 </ngx-charts-pie-chart>
 
-<ngx-charts-line-chart
+<ngx-charts-line-chart *ngIf="disabledLine && typeGraph == 'Date'"
   [view]="view"
   [scheme]="colorScheme"
   [legend]="legend"
