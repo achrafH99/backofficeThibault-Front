@@ -167,7 +167,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getSucces() {
-    this.toastr.success('Data updated', '', {
+    this.toastr.success('Mise à jour effectuée', '', {
       tapToDismiss: true,
     });
   }
